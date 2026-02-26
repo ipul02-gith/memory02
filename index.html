@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenangan Kita 😁</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #faf7f2;
+  --warm-white: #fff9f5;
+  --pink-soft: #f2c4ce;
+  --pink-light: #fde8ed;
+  --pink-deep: #d4748a;
+  --sage: #b5c4b1;
+  --sage-light: #e8efe7;
+  --sage-deep: #7a9475;
+  --terracotta: #d4957a;
+  --text-dark: #2c2320;
+  --text-mid: #6b5c58;
+  --text-light: #a89390;
+  --border: #ead6d0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--text-dark);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  cursor: default;
+}
+
+/* ── Decorative background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 10%, rgba(242,196,206,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 80%, rgba(181,196,177,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(212,149,122,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+/* ── Header ── */
+.site-header {
+  text-align: center;
+  padding: 64px 0 48px;
+  position: relative;
+}
+.site-header::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--pink-deep), transparent);
+  margin: 28px auto 0;
+}
+.header-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+.site-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 300;
+  color: var(--text-dark);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.site-title em {
+  font-style: italic;
+  color: var(--pink-deep);
+}
+.site-sub {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+}
+
+/* ── Floating petals deco ── */
+.petal {
+  position: fixed;
+  font-size: 16px;
+  opacity: 0;
+  pointer-events: none;
+  animation: fall linear infinite;
+  z-index: 0;
+}
+@keyframes fall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* ── Stats ── */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 52px;
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem;
+  font-weight: 300;
+  color: var(--pink-deep);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* ── Add button ── */
+.add-btn-wrap { text-align: center; margin-bottom: 48px; }
+.add-btn {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  background: var(--text-dark);
+  color: var(--cream);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.add-btn:hover {
+  background: var(--pink-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(212,116,138,0.3);
+}
+
+/* ── Filter ── */
+.filter-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.filter-tag {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+}
+.filter-tag:hover, .filter-tag.active {
+  background: var(--pink-soft);
+  border-color: var(--pink-deep);
+  color: var(--text-dark);
+}
+
+/* ── Masonry grid ── */
+.grid {
+  columns: 3;
+  column-gap: 20px;
+}
+@media (max-width: 720px) { .grid { columns: 2; } }
+@media (max-width: 440px) { .grid { columns: 1; } }
+
+/* ── Memory card ── */
+.card {
+  break-inside: avoid;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: all 0.35s cubic-bezier(.22,.68,0,1.2);
+  animation: cardIn 0.5s ease forwards;
+  opacity: 0;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(44,35,32,0.1), 0 4px 12px rgba(212,116,138,0.1);
+  border-color: var(--pink-soft);
+}
+
+.card-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+.card-img-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  background: linear-gradient(135deg, var(--pink-light), var(--sage-light));
+}
+
+.card-body { padding: 20px; }
+.card-tag {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-tag::before {
+  content: '';
+  width: 18px; height: 1px;
+  background: var(--pink-deep);
+}
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+.card-note {
+  font-size: 12.5px;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.card-date {
+  font-size: 10px;
+  color: var(--text-light);
+  letter-spacing: 0.1em;
+}
+.card-actions { display: flex; gap: 6px; }
+.card-btn {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.card-btn:hover { background: var(--pink-light); border-color: var(--pink-deep); color: var(--pink-deep); }
+.card-btn.del:hover { background: #fde8e8; border-color: #e06b6b; color: #e06b6b; }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  grid-column: 1/-1;
+}
+.empty-state .big { font-size: 52px; margin-bottom: 16px; display: block; }
+.empty-state h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-bottom: 8px;
+}
+.empty-state p { font-size: 13px; color: var(--text-light); }
+
+/* ── Modal ── */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(44,35,32,0.5);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.overlay.open { display: flex; }
+
+.modal {
+  background: var(--warm-white);
+  border-radius: 28px;
+  padding: 40px;
+  width: 100%; max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalIn 0.3s cubic-bezier(.22,.68,0,1.2);
+  border: 1px solid var(--border);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.modal-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dark);
+}
+.modal-header p { font-size: 12px; color: var(--text-light); margin-top: 6px; letter-spacing: 0.05em; }
+
+.field { margin-bottom: 22px; }
+.field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+.field input, .field select, .field textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--pink-deep);
+  box-shadow: 0 0 0 3px rgba(212,116,138,0.12);
+}
+.field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+.field select option { background: var(--cream); }
+
+/* Emoji picker row */
+.emoji-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.emoji-opt {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.emoji-opt.selected, .emoji-opt:hover {
+  border-color: var(--pink-deep);
+  background: var(--pink-light);
+  transform: scale(1.1);
+}
+
+/* Image upload area */
+.upload-area {
+  border: 1.5px dashed var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.upload-area:hover { border-color: var(--pink-deep); background: var(--pink-light); }
+.upload-area input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+  width: 100%; height: 100%;
+}
+.upload-icon { font-size: 32px; margin-bottom: 8px; }
+.upload-text { font-size: 12px; color: var(--text-light); }
+.upload-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: none;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+  justify-content: flex-end;
+}
+.btn-cancel {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 13px 24px; border-radius: 50px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text-light); cursor: pointer; transition: all 0.2s;
+}
+.btn-cancel:hover { border-color: var(--text-mid); color: var(--text-dark); }
+.btn-save {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 13px 28px; border-radius: 50px;
+  border: none; background: var(--text-dark);
+  color: var(--cream); cursor: pointer; transition: all 0.2s;
+}
+.btn-save:hover { background: var(--pink-deep); box-shadow: 0 8px 24px rgba(212,116,138,0.35); }
+
+/* ── Delete confirm ── */
+.confirm-modal {
+  background: var(--warm-white);
+  border-radius: 24px;
+  padding: 36px;
+  width: 100%; max-width: 360px;
+  text-align: center;
+  border: 1px solid var(--border);
+  animation: modalIn 0.3s cubic-bezier(.22,.68,0,1.2);
+}
+.confirm-modal .emoji { font-size: 40px; margin-bottom: 16px; display: block; }
+.confirm-modal h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 400;
+  font-style: italic; margin-bottom: 8px;
+}
+.confirm-modal p { font-size: 13px; color: var(--text-light); margin-bottom: 24px; }
+.confirm-actions { display: flex; gap: 10px; justify-content: center; }
+.btn-del-confirm {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 12px 24px; border-radius: 50px; border: none;
+  background: #d94f4f; color: white; cursor: pointer; transition: all 0.2s;
+}
+.btn-del-confirm:hover { background: #bb3333; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--text-dark); color: var(--cream);
+  font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 0.05em;
+  padding: 14px 28px; border-radius: 50px;
+  z-index: 999; opacity: 0;
+  transition: all 0.4s cubic-bezier(.22,.68,0,1.2);
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 10px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--pink-soft); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Floating petals -->
+<div id="petals"></div>
+
+<div class="wrap">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-label">✦ Memory Collection ✦</div>
+    <h1 class="site-title">Koleksi <em>Kenangan</em> Kita</h1>
+    <p class="site-sub">setiap momen layak untuk diabadikan</p>
+  </header>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num" id="stat-all">0</div>
+      <div class="stat-label">Kenangan</div>
+    </div>
+    <div class="stat-item" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding: 0 40px;">
+      <div class="stat-num" id="stat-cats" style="color: var(--sage-deep)">0</div>
+      <div class="stat-label">Kategori</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-recent" style="color: var(--terracotta)">—</div>
+      <div class="stat-label">Terbaru</div>
+    </div>
+  </div>
+
+  <!-- Add button -->
+  <div class="add-btn-wrap">
+    <button class="add-btn" onclick="openAddModal()">
+      <span>✦</span> Tambah Kenangan Baru
+    </button>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-row" id="filter-row">
+    <button class="filter-tag active" onclick="setFilter('all', this)">Semua</button>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Simpan Kenangan</h2>
+      <p id="modal-sub">ceritakan momen spesial ini</p>
+    </div>
+
+    <div class="field">
+      <label>Judul Kenangan</label>
+      <input type="text" id="f-title" placeholder="mis. Pertama kali jalan bareng...">
+    </div>
+    <div class="field">
+      <label>Cerita Singkat</label>
+      <textarea id="f-note" placeholder="Apa yang bikin momen ini spesial?"></textarea>
+    </div>
+    <div style="display:flex; gap:14px; flex-wrap:wrap;">
+      <div class="field" style="flex:1; min-width:140px;">
+        <label>Tanggal</label>
+        <input type="date" id="f-date">
+      </div>
+      <div class="field" style="flex:1; min-width:140px;">
+        <label>Kategori</label>
+        <input type="text" id="f-cat" placeholder="mis. Date, support_sytem, Ulang Tahun...">
+      </div>
+    </div>
+    <div class="field">
+      <label>Pilih Icon</label>
+      <div class="emoji-row" id="emoji-row">
+        <div class="emoji-opt selected" data-e="🩷" onclick="selectEmoji(this)">🩷</div>
+        <div class="emoji-opt" data-e="🌙" onclick="selectEmoji(this)">🌙</div>
+        <div class="emoji-opt" data-e="✈️" onclick="selectEmoji(this)">✈️</div>
+        <div class="emoji-opt" data-e="🍰" onclick="selectEmoji(this)">🍰</div>
+        <div class="emoji-opt" data-e="🎬" onclick="selectEmoji(this)">🎬</div>
+        <div class="emoji-opt" data-e="🌊" onclick="selectEmoji(this)">🌊</div>
+        <div class="emoji-opt" data-e="🏡" onclick="selectEmoji(this)">🏡</div>
+        <div class="emoji-opt" data-e="🎵" onclick="selectEmoji(this)">🎵</div>
+        <div class="emoji-opt" data-e="💌" onclick="selectEmoji(this)">💌</div>
+        <div class="emoji-opt" data-e="🌿" onclick="selectEmoji(this)">🌿</div>
+        <div class="emoji-opt" data-e="☕" onclick="selectEmoji(this)">☕</div>
+        <div class="emoji-opt" data-e="🎡" onclick="selectEmoji(this)">🎡</div>
+        <div class="emoji-opt" data-e="🤍" onclick="selectEmoji(this)">🤍</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Foto (opsional)</label>
+      <div class="upload-area" id="upload-area">
+        <input type="file" id="f-img" accept="image/*" onchange="previewImg(event)">
+        <img class="upload-preview" id="img-preview">
+        <div id="upload-placeholder">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">Klik untuk pilih foto</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Batal</button>
+      <button class="btn-save" onclick="saveMemory()">Simpan Kenangan ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete confirm -->
+<div class="overlay" id="del-overlay" onclick="if(event.target===this)closeDelModal()">
+  <div class="confirm-modal">
+    <span class="emoji">🥺</span>
+    <h3>Hapus kenangan ini?</h3>
+    <p>Kenangan ini akan hilang selamanya...</p>
+    <div class="confirm-actions">
+      <button class="btn-cancel" onclick="closeDelModal()">Jangan</button>
+      <button class="btn-del-confirm" onclick="confirmDelete()">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──
+let memories = JSON.parse(localStorage.getItem('kenangan_v2') || '[]');
+let editId = null;
+let deleteId = null;
+let selectedEmoji = '🤍';
+let currentFilter = 'all';
+let imgDataURL = null;
+
+// ── Save ──
+function save() { localStorage.setItem('kenangan_v2', JSON.stringify(memories)); }
+
+// ── Toast ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── Petals ──
+(function spawnPetals() {
+  const p = document.getElementById('petals');
+  const emojis = ['🌸','✿','❀','⁕','✦'];
+  for (let i = 0; i < 9; i++) {
+    const el = document.createElement('div');
+    el.className = 'petal';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = (Math.random() * 100) + 'vw';
+    el.style.animationDuration = (10 + Math.random() * 20) + 's';
+    el.style.animationDelay = (Math.random() * 15) + 's';
+    el.style.fontSize = (12 + Math.random() * 12) + 'px';
+    p.appendChild(el);
+  }
+})();
+
+// ── Emoji picker ──
+function selectEmoji(el) {
+  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedEmoji = el.dataset.e;
+}
+
+// ── Image preview ──
+function previewImg(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    imgDataURL = ev.target.result;
+    const prev = document.getElementById('img-preview');
+    prev.src = imgDataURL;
+    prev.style.display = 'block';
+    document.getElementById('upload-placeholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Open/close modal ──
+function openAddModal() {
+  editId = null; imgDataURL = null;
+  document.getElementById('modal-title').textContent = 'Simpan Kenangan';
+  document.getElementById('modal-sub').textContent = 'ceritakan momen spesial ini';
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-note').value = '';
+  document.getElementById('f-date').valueAsDate = new Date();
+  document.getElementById('f-cat').value = '';
+  document.getElementById('f-img').value = '';
+  document.getElementById('img-preview').style.display = 'none';
+  document.getElementById('upload-placeholder').style.display = 'block';
+  imgDataURL = null;
+  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
+  document.querySelector('.emoji-opt[data-e="🤍"]').classList.add('selected');
+  selectedEmoji = '🤍';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function openEditModal(id) {
+  const m = memories.find(m => m.id === id);
+  if (!m) return;
+  editId = id;
+  imgDataURL = m.img || null;
+  document.getElementById('modal-title').textContent = 'Edit Kenangan';
+  document.getElementById('modal-sub').textContent = 'perbarui cerita ini';
+  document.getElementById('f-title').value = m.title;
+  document.getElementById('f-note').value = m.note;
+  document.getElementById('f-date').value = m.date;
+  document.getElementById('f-cat').value = m.category;
+  // emoji
+  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
+  const emojiEl = document.querySelector(`.emoji-opt[data-e="${m.emoji}"]`);
+  if (emojiEl) emojiEl.classList.add('selected');
+  selectedEmoji = m.emoji;
+  // image
+  if (m.img) {
+    document.getElementById('img-preview').src = m.img;
+    document.getElementById('img-preview').style.display = 'block';
+    document.getElementById('upload-placeholder').style.display = 'none';
+  } else {
+    document.getElementById('img-preview').style.display = 'none';
+    document.getElementById('upload-placeholder').style.display = 'block';
+  }
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function handleOverlayClick(e) { if (e.target.classList.contains('overlay')) closeModal(); }
+
+// ── Save memory ──
+function saveMemory() {
+  const title = document.getElementById('f-title').value.trim();
+  if (!title) {
+    document.getElementById('f-title').style.borderColor = '#d94f4f';
+    document.getElementById('f-title').focus();
+    setTimeout(() => document.getElementById('f-title').style.borderColor = '', 1500);
+    return;
+  }
+  const data = {
+    id: editId || Date.now(),
+    title,
+    note: document.getElementById('f-note').value.trim(),
+    date: document.getElementById('f-date').value,
+    category: document.getElementById('f-cat').value.trim() || 'Lainnya',
+    emoji: selectedEmoji,
+    img: imgDataURL,
+    created: new Date().toISOString()
+  };
+  if (editId) {
+    const idx = memories.findIndex(m => m.id === editId);
+    memories[idx] = data;
+    toast('✦ Kenangan berhasil diperbarui~');
+  } else {
+    memories.unshift(data);
+    toast('🤍 Kenangan baru tersimpan~');
+  }
+  save(); closeModal(); render();
+}
+
+// ── Delete ──
+function askDelete(id) {
+  deleteId = id;
+  document.getElementById('del-overlay').classList.add('open');
+}
+function closeDelModal() {
+  document.getElementById('del-overlay').classList.remove('open');
+  deleteId = null;
+}
+function confirmDelete() {
+  memories = memories.filter(m => m.id !== deleteId);
+  save(); closeDelModal(); render();
+  toast('🍂 Kenangan telah dihapus...');
+}
+
+// ── Filter ──
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ── Render ──
+function render() {
+  const grid = document.getElementById('grid');
+  const filterRow = document.getElementById('filter-row');
+
+  // Update filters
+  const cats = [...new Set(memories.map(m => m.category))];
+  filterRow.innerHTML = `<button class="filter-tag ${currentFilter==='all'?'active':''}" onclick="setFilter('all',this)">Semua</button>`;
+  cats.forEach(c => {
+    filterRow.innerHTML += `<button class="filter-tag ${currentFilter===c?'active':''}" onclick="setFilter('${c.replace(/'/g,"\\'")}',this)">${c}</button>`;
+  });
+
+  // Filter
+  const list = currentFilter === 'all' ? memories : memories.filter(m => m.category === currentFilter);
+
+  // Stats
+  document.getElementById('stat-all').textContent = memories.length;
+  document.getElementById('stat-cats').textContent = cats.length;
+  if (memories.length > 0) {
+    const latest = memories[0];
+    const d = new Date(latest.date || latest.created);
+    document.getElementById('stat-recent').textContent = d.toLocaleDateString('id-ID', { day:'numeric', month:'short' });
+    
+  }
+
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="empty-state">
+      <span class="big">🤍</span>
+      <h3>${currentFilter === 'all' ? 'Belum ada kenangan tersimpan' : 'Belum ada kenangan di kategori ini'}</h3>
+      <p>${currentFilter === 'all' ? 'Tambahkan momen pertama kalian!' : 'Coba filter lain atau tambah kenangan baru'}</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map((m, i) => {
+    const d = m.date ? new Date(m.date).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }) : '';
+    return `<div class="card" style="animation-delay:${i * 0.06}s">
+      ${m.img
+        ? `<img class="card-img" src="${m.img}" alt="${m.title}" loading="lazy">`
+        : `<div class="card-img-placeholder">${m.emoji}</div>`
+      }
+      <div class="card-body">
+        <div class="card-tag">${m.category}</div>
+        <div class="card-title">${m.emoji} ${m.title}</div>
+        ${m.note ? `<div class="card-note">${m.note}</div>` : ''}
+        <div class="card-footer">
+          <div class="card-date">${d}</div>
+          <div class="card-actions">
+            <button class="card-btn" onclick="openEditModal(${m.id})" title="Edit">✏️</button>
+            <button class="card-btn del" onclick="askDelete(${m.id})" title="Hapus">🗑</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Sample data ──
+if (memories.length === 0) {
+  memories = [
+    {
+      id: 1, title: 'date Pertama Kita', note: 'Masih inget waktu kamu pakai baju itu, nervous banget tapi seneng banget juga.',
+      date: '2024-06-14', category: 'Date', emoji: '🌸', img: null,
+      created: '2024-06-14T00:00:00Z'
+    },
+    {
+      id: 2, title: 'support sytem', note: 'tim pacarnya juara 4. ia terlihat kecewa karena merasa belum memberi yang terbaik. aku menggenggam tanganya dan berkata,"juara 4 hebat .aku bangga sama perjuangan kamu,bukan cuma hasilnya."',
+      date: '2024-08-20', category: 'Liburan', emoji: '⚽️', img: null,
+      created: '2024-08-20T00:00:00Z'
+    },
+    {
+      id: 2, title: 'support sytem', note: 'tim pacarnya juara 4. ia terlihat kecewa karena merasa belum memberi yang terbaik. aku menggenggam tanganya dan berkata,"juara 4 hebat .aku bangga sama perjuangan kamu,bukan cuma hasilnya."',
+      date: '2024-08-20', category: 'makan', emoji: '⚽️', img: null,
+      created: '2024-08-20T00:00:00Z'
+    },
+    {
+      id: 3, title: 'Ulang Tahunmu', note: 'Kue cokelatnya hampir jatuh tapi tetap sempurna kayak kamu.',
+      date: '2024-10-05', category: 'Spesial', emoji: '🍰', img: null,
+      created: '2024-10-05T00:00:00Z'
+    },
+    {
+      id: 4, title: 'Nonton Film Bareng', note: 'Film-nya bagus, tapi aku malah sering nyuri pandang ke kamu.',
+      date: '2025-01-18', category: 'Date', emoji: '🎬', img: null,
+      created: '2025-01-18T00:00:00Z'
+    },
+    {
+      id: 5, title: 'Hujan-hujanan Bareng', note: 'Ga sengaja kena hujan tapi malah jadi momen paling memorable.',
+      date: '2025-03-22', category: 'Random', emoji: '☔', img: null,
+      created: '2025-03-22T00:00:00Z'
+    },
+  ];
+  save();
+}
+
+render();
+</script>
+</body>
+</html>
